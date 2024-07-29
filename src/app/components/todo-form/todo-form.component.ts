@@ -23,8 +23,12 @@ export class TodoFormComponent {
     if (this.todoForm.valid) {
       const { text, completed } = this.todoForm.value;
 
-      this.todoService.addTodo(text, completed);
-      this.todoForm.reset();
+      if (text.trim() !== '') {
+        this.todoService.addTodo(text, completed);
+        this.todoForm.reset();
+      }
+    } else {
+      this.todoForm.markAllAsTouched();
     }
   }
 
@@ -33,5 +37,14 @@ export class TodoFormComponent {
       event.preventDefault();
       this.addTodo();
     }
+  }
+
+  get textControl() {
+    return this.todoForm.get('text');
+  }
+
+  get isTextInvalid() {
+    const textControl = this.textControl;
+    return textControl?.invalid && (textControl.touched || textControl.dirty);
   }
 }

@@ -12,4 +12,8 @@
       (keydown)="onKeyDown($event)"
     />
   </form>
+
+  @if (isTextInvalid) {
+    <div class="todo-form__error">Todo text is required.</div>
+  }
 </div>
