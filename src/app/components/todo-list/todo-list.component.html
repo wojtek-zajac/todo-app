@@ -4,7 +4,14 @@
   } @else {
     <ul class="todo-list__items">
       @for (todo of todos(); track todo.id) {
-        <li class="todo-list__item">{{ todo.text }}</li>
+        <li class="todo-list__item">
+          <input
+            type="checkbox"
+            [checked]="todo.completed"
+            (change)="toggleCompletion(todo.id)"
+          />
+          {{ todo.text }}
+        </li>
       }
   </ul>
   }

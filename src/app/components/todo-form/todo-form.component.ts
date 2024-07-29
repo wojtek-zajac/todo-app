@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TodoService } from '../../services';
 
 @Component({
@@ -10,16 +10,21 @@ import { TodoService } from '../../services';
   styleUrl: './todo-form.component.scss'
 })
 export class TodoFormComponent {
-  public todoControl = new FormControl('', Validators.required);
+  public todoForm: FormGroup;
 
-  constructor(private todoService: TodoService) {}
+  constructor(private fb: FormBuilder, private todoService: TodoService) {
+    this.todoForm = this.fb.group({
+      text: ['', Validators.required],
+      completed: [false]
+    });
+  }
 
   public addTodo(): void {
-    const text = this.todoControl.value?.trim();
+    if (this.todoForm.valid) {
+      const { text, completed } = this.todoForm.value;
 
-    if (text) {
-      this.todoService.addTodo(text);
-      this.todoControl.reset();
+      this.todoService.addTodo(text, completed);
+      this.todoForm.reset();
     }
   }
 

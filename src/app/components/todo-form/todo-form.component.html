@@ -1,10 +1,14 @@
 <div class="todo-form">
-  <form class="todo-form__form" (ngSubmit)="addTodo()">
+  <form class="todo-form__form" [formGroup]="todoForm" (ngSubmit)="addTodo()">
+    <input
+      type="checkbox"
+      formControlName="completed"
+    />
     <input
       class="todo-form__input"
       type="text"
-      [formControl]="todoControl"
       placeholder="Create a new todo..."
+      formControlName="text"
       (keydown)="onKeyDown($event)"
     />
   </form>
