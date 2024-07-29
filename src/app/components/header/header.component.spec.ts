@@ -25,6 +25,7 @@ describe('HeaderComponent', () => {
     const fixture = TestBed.createComponent(HeaderComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
+
     expect(compiled.querySelector('h1')?.textContent).toContain('TODO');
   });
 });
