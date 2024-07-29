@@ -1,9 +1,11 @@
-@if (todos().length === 0) {
-  <p>No todos yet. Add one!</p>
-} @else {
-  <ul>
-    @for (todo of todos(); track todo.id) {
-      <li>{{ todo.text }}</li>
-    }
-</ul>
-}
+<div class="todo-list">
+  @if (todos().length === 0) {
+    <p class="todo-list__empty-state">No todos yet. Add one!</p>
+  } @else {
+    <ul class="todo-list__items">
+      @for (todo of todos(); track todo.id) {
+        <li class="todo-list__item">{{ todo.text }}</li>
+      }
+  </ul>
+  }
+</div>

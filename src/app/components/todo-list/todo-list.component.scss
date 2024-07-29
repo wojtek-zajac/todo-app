@@ -1,0 +1,32 @@
+.todo-list {
+  position: relative;
+  width: var(--container-width);
+  margin: 0 auto 5rem;
+  box-shadow: 0 3.5rem 5rem -1.5rem rgba(194, 195, 214, .5);
+  background-color: var(--input-list-bg);
+  border-radius: 6px;
+
+  &__empty-state {
+    width: 100%;
+    padding: var(--box-padding);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  &__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: var(--box-padding);
+    border-bottom: 1px solid var(--list-divider-color);
+  
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

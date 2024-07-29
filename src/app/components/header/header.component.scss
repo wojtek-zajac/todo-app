@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  align-items: self-start;
+  justify-content: center;
+  width: 100%;
+  height: var(--header-height);
+  background-image: url('../../../assets/images/bg-desktop-light.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  @media (max-width: 375px) {
+    height: var(--mobile-header-height);
+    background-image: url('../../../assets/images/bg-mobile-light.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: var(--container-width);
+    position: relative;
+    top: 80px;
+  }
+
+  &__title {
+    color: var(--very-light-gray);
+    letter-spacing: 1rem;
+    margin: 0;
+    font-size: 2.5rem;
+  }
+
+  &__icon {
+    width: 26px;
+    height: 26px;
+  }
+}
