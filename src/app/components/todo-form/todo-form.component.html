@@ -1,0 +1,8 @@
+<form (ngSubmit)="addTodo()">
+  <input
+    type="text"
+    [formControl]="todoControl"
+    placeholder="Create a new todo..."
+    (keydown)="onKeyDown($event)"
+  />
+</form>

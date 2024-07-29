@@ -1,0 +1,9 @@
+@if (todos().length === 0) {
+  <p>No todos yet. Add one!</p>
+} @else {
+  <ul>
+    @for (todo of todos(); track todo.id) {
+      <li>{{ todo.text }}</li>
+    }
+</ul>
+}
