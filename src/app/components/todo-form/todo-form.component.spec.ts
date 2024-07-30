@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TodoFormComponent } from './todo-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TodoFormComponent } from './todo-form.component';
 import { TodoService } from '../../services';
 
 class MockTodoService {
@@ -17,10 +16,9 @@ describe('TodoFormComponent', () => {
     mockTodoService = new MockTodoService();
 
     await TestBed.configureTestingModule({
-      imports: [TodoFormComponent, ReactiveFormsModule],
-      providers: [{ provide: TodoService, useValue: mockTodoService}]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule, TodoFormComponent],
+      providers: [{ provide: TodoService, useValue: mockTodoService }]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TodoFormComponent);
     component = fixture.componentInstance;
@@ -31,25 +29,27 @@ describe('TodoFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with an empty form control', () => {
-    expect(component.todoControl.value).toBe('');
-    expect(component.todoControl.valid).toBeFalsy;
+  it('should initialize with an empty form and invalid text control', () => {
+    const textControl = component.textControl;
+    expect(textControl?.value).toBe('');
+    expect(textControl?.valid).toBeFalse();
   });
 
   it('should call addTodo on TodoService when addTodo is called with valid input', () => {
     const todoText = 'Test Todo';
-    component.todoControl.setValue(todoText);
+    component.todoForm.setValue({ text: todoText, completed: false });
     component.addTodo();
 
-    expect(mockTodoService.addTodo).toHaveBeenCalledOnceWith(todoText);
-    expect(component.todoControl.value).toBeNull();
+    expect(mockTodoService.addTodo).toHaveBeenCalledOnceWith(todoText, false);
   });
 
-  it('should reset form control after adding a todo', () => {
-    component.todoControl.setValue('Test Todo');
+  it('should reset form after adding a todo', () => {
+    component.todoForm.setValue({ text: 'Test Todo', completed: false });
     component.addTodo();
 
-    expect(component.todoControl.value).toBeNull();
+    expect(component.todoForm.controls['text'].value).toBeNull();
+    expect(component.todoForm.controls['completed'].value).toBeNull();
+    expect(component.isSubmitted).toBe(false);
   });
 
   it('should call addTodo when Enter key is pressed', () => {
@@ -66,5 +66,12 @@ describe('TodoFormComponent', () => {
     component.onKeyDown(event);
 
     expect(component.addTodo).not.toHaveBeenCalled();
+  });
+
+  it('should show validation error when form is submitted with invalid input', () => {
+    component.todoForm.controls['text'].setValue('');
+    component.addTodo();
+
+    expect(component.isTextInvalid).toBeTrue();
   });
 });
