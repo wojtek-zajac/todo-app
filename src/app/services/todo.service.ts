@@ -11,9 +11,21 @@ export class TodoService {
     return this._todos;
   }
 
-  public addTodo(text: string): void {
+  public addTodo(text: string, completed: boolean): void {
     if (text.trim()) {
-      this._todos.update(todos => [...todos, { id: crypto.randomUUID(), text }]);
+      this._todos.update(todos => [
+        ...todos, {
+          id: crypto.randomUUID(),
+          text,
+          completed
+        }
+      ]);
     }
   }
+
+  public toggleTodoCompletion(id: string): void {
+    this._todos.update(todos => todos.map(todo => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  }  
 }

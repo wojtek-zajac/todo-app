@@ -1,11 +1,20 @@
 <div class="todo-form">
-  <form class="todo-form__form" (ngSubmit)="addTodo()">
+  <form class="todo-form__form" [formGroup]="todoForm" (ngSubmit)="addTodo()">
+    <app-custom-checkbox formControlName="completed"></app-custom-checkbox>
     <input
-      class="todo-form__input"
+      class="todo-form__text-input"
       type="text"
-      [formControl]="todoControl"
+      id="todo-text"
+      name="todo-text"
       placeholder="Create a new todo..."
+      autocomplete="off"
+      aria-label="Todo text"
+      formControlName="text"
       (keydown)="onKeyDown($event)"
     />
   </form>
+
+  @if (isTextInvalid) {
+    <div class="todo-form__error">Todo text is required.</div>
+  }
 </div>

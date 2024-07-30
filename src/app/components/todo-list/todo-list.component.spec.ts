@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TodoListComponent } from './todo-list.component';
 import { signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { TodoListComponent } from './todo-list.component';
 import { TodoService } from '../../services';
 import type { Todo } from '../../interfaces';
+import { CustomCheckboxComponent } from '../custom-checkbox/custom-checkbox.component';
 
 class MockTodoService {
   todos = signal<Todo[]>([]);
@@ -18,7 +19,7 @@ describe('TodoListComponent', () => {
     mockTodoService = new MockTodoService();
 
     await TestBed.configureTestingModule({
-      imports: [TodoListComponent],
+      imports: [CommonModule, CustomCheckboxComponent, TodoListComponent],
       providers: [{ provide: TodoService, useValue: mockTodoService }]
     })
     .compileComponents();
@@ -33,10 +34,10 @@ describe('TodoListComponent', () => {
   });
 
   it('should initialize todos signal with TodoService.todos', () => {
-    const testTodos: Todo[] = [{ id: '1', text: 'Test Todo' }];
-
+    const testTodos: Todo[] = [{ id: '1', text: 'Test Todo', completed: false }];
     mockTodoService.todos = signal(testTodos);
     component.ngOnInit();
+    fixture.detectChanges();
 
     expect(component.todos()).toEqual(testTodos);
   });
@@ -54,8 +55,8 @@ describe('TodoListComponent', () => {
 
   it('should render todos in the template when there are todos', () => {
     const testTodos: Todo[] = [
-      { id: '1', text: 'First Todo' },
-      { id: '2', text: 'Second Todo' }
+      { id: '1', text: 'First Todo', completed: false },
+      { id: '2', text: 'Second Todo', completed: true }
     ];
     mockTodoService.todos = signal(testTodos);
     component.ngOnInit();

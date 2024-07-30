@@ -1,25 +1,38 @@
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TodoService } from '../../services';
+import { CustomCheckboxComponent } from '../custom-checkbox/custom-checkbox.component';
 
 @Component({
   selector: 'app-todo-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CustomCheckboxComponent],
   templateUrl: './todo-form.component.html',
   styleUrl: './todo-form.component.scss'
 })
 export class TodoFormComponent {
-  public todoControl = new FormControl('', Validators.required);
+  public todoForm: FormGroup;
+  public isSubmitted: boolean = false;
 
-  constructor(private todoService: TodoService) {}
+  constructor(private fb: FormBuilder, private todoService: TodoService) {
+    this.todoForm = this.fb.group({
+      text: ['', Validators.required],
+      completed: [false]
+    });
+  }
 
   public addTodo(): void {
-    const text = this.todoControl.value?.trim();
+    this.isSubmitted = true;
+      if (this.todoForm.valid) {
+      const { text, completed } = this.todoForm.value;
 
-    if (text) {
-      this.todoService.addTodo(text);
-      this.todoControl.reset();
+      if (text.trim() !== '') {
+        this.todoService.addTodo(text, completed);       
+        this.todoForm.reset();
+        this.isSubmitted = false;
+      }
+    } else {
+      this.todoForm.markAllAsTouched();
     }
   }
 
@@ -28,5 +41,15 @@ export class TodoFormComponent {
       event.preventDefault();
       this.addTodo();
     }
+  }
+
+  get textControl(): AbstractControl<any, any> | null {
+    return this.todoForm.get('text');
+  }
+
+  get isTextInvalid(): boolean | undefined {
+    const textControl = this.textControl;
+
+    return this.isSubmitted && (textControl?.invalid && (textControl.touched || textControl.dirty));
   }
 }

@@ -4,7 +4,15 @@
   } @else {
     <ul class="todo-list__items">
       @for (todo of todos(); track todo.id) {
-        <li class="todo-list__item">{{ todo.text }}</li>
+        <li class="todo-list__item">
+          <app-custom-checkbox
+            [checked]="todo.completed"
+            (change)="toggleCompletion(todo.id)"
+          ></app-custom-checkbox>
+          <div class="todo-list__text" [ngClass]="{ 'todo-list__text--completed': todo.completed }">
+            {{ todo.text }}
+          </div>
+        </li>
       }
   </ul>
   }

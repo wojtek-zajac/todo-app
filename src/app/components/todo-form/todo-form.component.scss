@@ -2,16 +2,18 @@
   position: relative;
   width: var(--container-width);
   margin: -160px auto 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &__form {
+    display: flex;
+    gap: 1rem;
     background-color: var(--input-list-bg);
     margin: 1.5rem auto;
     border-radius: 6px;
     padding: var(--box-padding);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  &__input {
+  &__text-input {
     width: 100%;
     border: none;
     outline: none;
@@ -26,5 +28,10 @@
       color: var(--dark-grayish-blue-light);
       opacity: 1;
     }
+  }
+
+  &__error {
+    color: var(--error-color);
+    margin-bottom: 1rem;
   }
 }
