@@ -9,9 +9,14 @@
             [checked]="todo.completed"
             (change)="toggleCompletion(todo.id)"
           ></app-custom-checkbox>
+
           <div class="todo-list__text" [ngClass]="{ 'todo-list__text--completed': todo.completed }">
             {{ todo.text }}
           </div>
+
+          <button class="todo-list__delete-button" (click)="deleteTodo(todo.id)">
+            <img src="assets/icons/icon-cross.svg" alt="Delete">
+          </button>
         </li>
       }
   </ul>
