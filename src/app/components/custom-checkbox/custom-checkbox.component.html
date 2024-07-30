@@ -1,0 +1,10 @@
+<label class="custom-checkbox">
+  <input
+    type="checkbox"
+    class="custom-checkbox__input"
+    [checked]="checked"
+    [attr.aria-label]="getAriaLabel()"
+    (change)="toggleCheck($event)"
+  />
+  <span class="custom-checkbox__inner"></span>
+</label>
