@@ -69,4 +69,35 @@ describe('TodoListComponent', () => {
     expect(listItems[0].textContent).toContain('First Todo');
     expect(listItems[1].textContent).toContain('Second Todo');
   });
+
+  it('should call deleteTodo when the delete button is clicked', () => {
+    const testTodos: Todo[] = [
+      { id: '1', text: 'First Todo', completed: false }
+    ];
+    mockTodoService.todos.set(testTodos);
+    
+    fixture.detectChanges();
+  
+    spyOn(component, 'deleteTodo');
+  
+    const compiled = fixture.nativeElement as HTMLElement;
+    const listItem = compiled.querySelector('.todo-list__item') as HTMLElement;
+  
+    if (listItem) {
+      listItem.classList.add('hover');
+      fixture.detectChanges();
+  
+      const deleteButton = listItem.querySelector('button') as HTMLButtonElement;
+  
+      if (deleteButton) {
+        deleteButton.click();
+        fixture.detectChanges();
+        expect(component.deleteTodo).toHaveBeenCalledWith('1');
+      } else {
+        fail('Delete button not found');
+      }
+    } else {
+      fail('List item not found');
+    }
+  });
 });
