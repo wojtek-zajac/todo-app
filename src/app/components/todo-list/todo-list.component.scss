@@ -21,12 +21,22 @@
 
   &__item {
     display: flex;
+    gap: 1rem;
     align-items: center;
     padding: var(--box-padding);
     border-bottom: 1px solid var(--list-divider-color);
   
     &:last-child {
       border-bottom: none;
+    }
+  }
+
+  &__text {
+    transition: color 0.3s, text-decoration 0.3s;
+
+    &--completed {
+      color: var(--dark-grayish-blue-light);
+      text-decoration: line-through;
     }
   }
 }

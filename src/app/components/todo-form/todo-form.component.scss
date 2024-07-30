@@ -4,6 +4,8 @@
   margin: -160px auto 0;
 
   &__form {
+    display: flex;
+    gap: 1rem;
     background-color: var(--input-list-bg);
     margin: 1.5rem auto;
     border-radius: 6px;
@@ -11,7 +13,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  &__input {
+  &__text-input {
     width: 100%;
     border: none;
     outline: none;

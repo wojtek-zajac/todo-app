@@ -1,10 +1,13 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { TodoService } from '../../services';
 import type { Todo } from '../../interfaces';
+import { CustomCheckboxComponent } from '../custom-checkbox/custom-checkbox.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
+  imports: [CommonModule, CustomCheckboxComponent],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'
 })
