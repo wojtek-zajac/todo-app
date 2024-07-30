@@ -12,6 +12,7 @@
           <div class="todo-list__text" [ngClass]="{ 'todo-list__text--completed': todo.completed }">
             {{ todo.text }}
           </div>
+          <button (click)="deleteTodo(todo.id)">X</button>
         </li>
       }
   </ul>

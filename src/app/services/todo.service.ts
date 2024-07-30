@@ -23,6 +23,10 @@ export class TodoService {
     }
   }
 
+  public deleteTodo(id: string): void {
+    this._todos.update(todos => todos.filter(todo => todo.id !== id));
+  }
+
   public toggleTodoCompletion(id: string): void {
     this._todos.update(todos => todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
