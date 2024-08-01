@@ -1,8 +1,9 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, type Signal, type WritableSignal } from '@angular/core';
 import { TodoService } from '../../services';
 import type { Todo } from '../../interfaces';
 import { CustomCheckboxComponent } from '../custom-checkbox/custom-checkbox.component';
 import { CommonModule } from '@angular/common';
+import { TodoFilter } from '../../enums';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,21 +12,34 @@ import { CommonModule } from '@angular/common';
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'
 })
-export class TodoListComponent implements OnInit {
-  public todos: WritableSignal<Todo[]> = signal<Todo[]>([]);
-  
-  constructor(private todoService: TodoService) {}
+export class TodoListComponent {
+  public filteredTodos: Signal<Todo[]>;
+  public todos: Signal<Todo[]>;
+  public activeCount: Signal<number>;
+  public filter: Signal<string>;
 
-  ngOnInit() {
-    this.todos = this.todoService.todos;
-  }
+  public TodoFilter = TodoFilter;
   
+  constructor(private todoService: TodoService) {
+    this.filteredTodos = this.todoService.filteredTodos;
+    this.todos = this.todoService.todos;
+    this.activeCount = this.todoService.activeCount;
+    this.filter = this.todoService.filter;
+  }
+
   public deleteTodo(id: string): void {
     this.todoService.deleteTodo(id);
-    this.todos = this.todoService.todos;
   }
 
   public toggleCompletion(id: string): void {
     this.todoService.toggleTodoCompletion(id);
+  }
+
+  public setFilter(filter: string): void {
+    this.todoService.setFilter(filter);
+  }
+
+  public clearCompleted(): void {
+    this.todoService.clearCompleted();
   }
 }
