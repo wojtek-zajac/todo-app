@@ -1,5 +1,5 @@
 @mixin checkbox-checked {
-  background-image: url('/assets/icons/icon-check.svg'), linear-gradient(to bottom right, var(--check-bg-start), var(--check-bg-end));
+  background-image: url('../../../assets/icons/icon-check.svg'), linear-gradient(to bottom right, var(--check-bg-start), var(--check-bg-end));
   background-position: center;
   background-size: 12px 12px, cover;
   background-repeat: no-repeat;
