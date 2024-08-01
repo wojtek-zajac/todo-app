@@ -1,10 +1,10 @@
-<div class="todo-list">
+<main class="todo-list">
   @if (todos().length === 0) {
     <p class="todo-list__empty-state">No todos yet. Add one!</p>
   } @else {
-    <ul class="todo-list__items">
+    <ul class="todo-list__items" cdkDropList (cdkDropListDropped)="drop($event)">
       @for (todo of filteredTodos(); track todo.id) {
-        <li class="todo-list__item">
+        <li class="todo-list__item" cdkDrag>
           <app-custom-checkbox
             [checked]="todo.completed"
             (change)="toggleCompletion(todo.id)"
@@ -30,4 +30,4 @@
       <button (click)="clearCompleted()" class="todo-list__clear-completed">Clear completed</button>
     </div>
   }
-</div>
+</main>
