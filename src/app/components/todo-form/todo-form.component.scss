@@ -1,16 +1,30 @@
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .todo-form {
   position: relative;
-  width: var(--container-width);
-  margin: -160px auto 0;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: -140px 1.5rem 0;
+
+  @media (max-width: 375px) {
+    margin-top: -100px;
+  }
 
   &__form {
     display: flex;
     gap: 1rem;
     background-color: var(--input-list-bg);
-    margin: 1.5rem auto;
     border-radius: 6px;
     padding: var(--box-padding);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 375px) {
+      padding: 0.7rem 1rem;
+    }
   }
 
   &__text-input {

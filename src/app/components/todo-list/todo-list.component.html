@@ -23,11 +23,21 @@
     <div class="todo-list__footer">
       <span>{{ activeCount() }} items left</span>
       <div class="todo-list__filters">
-        <button (click)="setFilter(TodoFilter.All)" [class.active]="filter() === TodoFilter.All">All</button>
-        <button (click)="setFilter(TodoFilter.Active)" [class.active]="filter() === TodoFilter.Active">Active</button>
-        <button (click)="setFilter(TodoFilter.Completed)" [class.active]="filter() === TodoFilter.Completed">Completed</button>
+        <ng-container *ngTemplateOutlet="filtersTemplate"></ng-container>
       </div>
       <button (click)="clearCompleted()" class="todo-list__clear-completed">Clear completed</button>
     </div>
   }
 </main>
+
+@if (todos().length !== 0) {
+  <aside class="todo-list__filters-mobile">
+    <ng-container *ngTemplateOutlet="filtersTemplate"></ng-container>
+  </aside>
+}
+
+<ng-template #filtersTemplate>
+  <button (click)="setFilter(TodoFilter.All)" [class.active]="filter() === TodoFilter.All">All</button>
+  <button (click)="setFilter(TodoFilter.Active)" [class.active]="filter() === TodoFilter.Active">Active</button>
+  <button (click)="setFilter(TodoFilter.Completed)" [class.active]="filter() === TodoFilter.Completed">Completed</button>
+</ng-template>

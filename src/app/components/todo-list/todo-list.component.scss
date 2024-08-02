@@ -1,16 +1,32 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
 .todo-list {
   position: relative;
-  width: var(--container-width);
-  margin: 0 auto 3.3rem;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: -3rem 1.5rem 2.5rem;
   box-shadow: 0 3.5rem 5rem -1.5rem rgba(194, 195, 214, .5);
   background-color: var(--input-list-bg);
   border-radius: 6px;
 
+  @media (max-width: 375px) {
+    margin: -1.7rem 1.5rem 1rem;
+  }
+
   &__empty-state {
-    width: 100%;
     padding: var(--box-padding);
     padding-top: 2rem;
     padding-bottom: 2rem;
+
+    @media (max-width: 375px) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
   }
 
   &__items {
@@ -23,6 +39,9 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
     padding: var(--box-padding);
     border-bottom: 1px solid var(--list-divider-color);
     cursor: move;
@@ -106,14 +125,47 @@
     padding: var(--box-padding);
     border-top: 1px solid var(--list-divider-color);
     font-size: 0.9rem;
+
+    @media (max-width: 500px) {
+      .todo-list__filters {
+        display: none;
+      }
+    }
   }
 
   &__filters {
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
+
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
 
-  &__filters button {
+  &__filters-mobile {
+    display: none;
+    justify-content: center;
+    gap: 1rem;
+    padding: var(--box-padding);
+    margin: 0 1.5rem 1rem;
+    width: 100%;
+    background-color: var(--input-list-bg);
+    box-shadow: 0 3.5rem 5rem -1.5rem rgba(194, 195, 214, 0.5);
+    border-radius: 6px;
+    z-index: 1;
+
+    @media (max-width: 500px) {
+      display: flex;
+    }
+
+    @media (min-width: 375px) {
+      margin-top: -1rem;
+    }
+  }
+
+  &__filters button,
+  &__filters-mobile button {
     background: none;
     border: none;
     font-family: inherit;
@@ -130,7 +182,8 @@
     }
   }
 
-  &__filters button.active {
+  &__filters button.active,
+  &__filters-mobile button.active {
     color: var(--bright-blue);
     background-color: transparent;
   }
