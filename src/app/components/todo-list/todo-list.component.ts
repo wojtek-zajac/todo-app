@@ -11,7 +11,7 @@ import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk
   standalone: true,
   imports: [CommonModule, CustomCheckboxComponent, CdkDropList, CdkDrag],
   templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.scss'
+  styleUrls: ['./todo-list.component.scss', './todo-list-drag-drop.component.scss']
 })
 export class TodoListComponent {
   public filteredTodos: Signal<Todo[]>;
